@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/register/")
-@Api(value="patientsregistration")
+@Api(value = "patientsregistration")
 public class RegistrationController {
 
     private PatientService patientService;
@@ -25,7 +25,7 @@ public class RegistrationController {
     }
 
     // view -> http://localhost:8080/swagger-ui.html
-    @ApiOperation(value = "Add a new patient",response = String.class)
+    @ApiOperation(value = "Add a new patient", response = String.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Patient successfully added"),
             @ApiResponse(code = 401, message = "You are not authorized to add a patient"),
@@ -34,13 +34,12 @@ public class RegistrationController {
     }
     )
     @PostMapping("add")
-    ResponseEntity<String> addPatient(@RequestBody Patient patient){
+    ResponseEntity<String> addPatient(@RequestBody Patient patient) {
         return ResponseEntity.status(201).body("Patient Added. ID: " + patientService.addPatient(patient));
     }
 
 
-
-    @ApiOperation(value = "Find patient by patient ID",response = Patient.class)
+    @ApiOperation(value = "Find patient by patient ID", response = Patient.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully found patient"),
             @ApiResponse(code = 401, message = "You are not authorized to view the patient"),
@@ -48,14 +47,11 @@ public class RegistrationController {
             @ApiResponse(code = 404, message = "The patient you were trying to reach is not found")
     }
     )
-    @GetMapping("patient/{id}")
-    Patient getPatientById(@PathVariable(required = true) String patientId){
-        // finding patient by id
-        final Optional<Patient> patient = patientService.findPatientById(patientId);
-        if(!patient.isPresent()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient Not found");
-        }
-        return patient.get();
+    @GetMapping("patient/{patientId}")
+    Patient getPatientById(@PathVariable(required = true) String patientId) {
+        // not need for a get when you use orElse...
+        return patientService.findPatientById(patientId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient Not found"));
     }
 
 

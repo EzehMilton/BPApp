@@ -33,6 +33,7 @@ public class PatientService {
 
 
     public Optional<Patient> findPatientById(String id) {
+        System.out.println("id = " + id);
         return patientRepository.findByPatientId(id);
     }
 }
