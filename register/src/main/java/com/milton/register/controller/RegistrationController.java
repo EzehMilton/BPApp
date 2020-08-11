@@ -1,17 +1,17 @@
 package com.milton.register.controller;
 
-import com.milton.register.model.PatientReq;
+import com.milton.register.model.Patient;
 import com.milton.register.service.PatientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("v1/register/")
@@ -34,8 +34,28 @@ public class RegistrationController {
     }
     )
     @PostMapping("add")
-    ResponseEntity<String> addPatient(@RequestBody PatientReq patientReq){
-        return ResponseEntity.status(201).body("Patient Added. ID: " + patientService.addPatient(patientReq));
+    ResponseEntity<String> addPatient(@RequestBody Patient patient){
+        return ResponseEntity.status(201).body("Patient Added. ID: " + patientService.addPatient(patient));
+    }
+
+
+
+    @ApiOperation(value = "Find patient by patient ID",response = Patient.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully found patient"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the patient"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The patient you were trying to reach is not found")
+    }
+    )
+    @GetMapping("patient/{id}")
+    Patient getPatientById(@PathVariable(required = true) String patientId){
+        // finding patient by id
+        final Optional<Patient> patient = patientService.findPatientById(patientId);
+        if(!patient.isPresent()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient Not found");
+        }
+        return patient.get();
     }
 
 

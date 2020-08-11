@@ -1,19 +1,16 @@
 package com.milton.register.model;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
-public class PatientReq {
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String patientId;
     private String fullName;
     private String telNumber;
@@ -27,15 +24,18 @@ public class PatientReq {
     private String maritalStatus;
     private String healthConditions;
 
+    public Patient() {
 
-    public PatientReq(long id, String patientId, String fullName, String telNumber, String telNextOfKin, String registrationDate, String registrationTime, String dateOfBirth, String gender, String maritalStatus, String healthConditions) {
+    }
+
+    public Patient(long id, String patientId, String fullName, String telNumber, String telNextOfKin, String registrationDate, String registrationTime, String dateOfBirth, String gender, String maritalStatus, String healthConditions) {
         this.id = id;
-        this.patientId = RandomStringUtils.randomAlphanumeric(10);
+        this.patientId = patientId;
         this.fullName = fullName;
         this.telNumber = telNumber;
         this.telNextOfKin = telNextOfKin;
-        this.registrationDate = LocalDate.now().toString();
-        this.registrationTime = LocalTime.now().toString().substring(0,8);
+        this.registrationDate = registrationDate;
+        this.registrationTime = registrationTime;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
