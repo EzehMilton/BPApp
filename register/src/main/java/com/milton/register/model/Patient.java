@@ -15,11 +15,11 @@ public class Patient {
     private String fullName;
     private String telNumber;
     private String telNextOfKin;
-    // convert to date
+    // TODO convert to date
     private String registrationDate;
     private String registrationTime;
     private String dateOfBirth;
-    // convert to enum
+    // TODO convert to enum
     private String gender;
     private String maritalStatus;
     private String healthConditions;

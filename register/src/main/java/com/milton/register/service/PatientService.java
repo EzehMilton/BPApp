@@ -11,6 +11,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
 
+/**
+ * Patient regitration class
+ * Registers and gets patient
+ */
 @Service
 public class PatientService {
 
@@ -20,29 +24,50 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Add Patient to DB
+     * @param patient
+     * @return Patient ID
+     */
     public String addPatient(Patient patient){
-        // set id, date and time before saving.
-        setIdDateTime(patient);
+        checkIfPatientIsAlreadyRegistered(patient);
+        setIdDateTimeForPatient(patient);
         patientRepository.save(patient);
         return patient.getPatientId();
     }
 
-    private void setIdDateTime(Patient patient) {
-        patient.setPatientId(RandomStringUtils.randomAlphanumeric(6));
-        patient.setRegistrationDate(LocalDate.now().toString());
-        patient.setRegistrationTime(LocalTime.now().toString().substring(0,8));
-        // check if patient has registered before.
-        final Optional<Patient> patientExists = patientRepository.findByDateOfBirthAndFullName(patient.getDateOfBirth(),
-                patient.getFullName());
-       //TODO Tidy this up so double registration is not allowed
-       if(patientExists.isPresent()){
-           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient Already Registered");
-       }
-    }
-
-
+    /**
+     * Gets Patient using Patient's ID
+     * @param id - Patient ID genereated during registration
+     * @return Patent
+     */
     public Optional<Patient> findPatientById(String id) {
         System.out.println("id = " + id);
         return patientRepository.findByPatientId(id);
     }
+
+    /**
+     * Helper class - updates patient's registration details.
+     * @param patient
+     */
+    private void setIdDateTimeForPatient(Patient patient) {
+        patient.setPatientId(RandomStringUtils.randomAlphanumeric(6));
+        patient.setRegistrationDate(LocalDate.now().toString());
+        patient.setRegistrationTime(LocalTime.now().toString().substring(0,8));
+    }
+
+    /**
+     * Helper class - Checks if patient is registered already
+     * @param patient
+     */
+    private void checkIfPatientIsAlreadyRegistered(Patient patient) {
+        //TODO Rework double registration logic.
+        final Optional<Patient> patientExists = patientRepository.findByDateOfBirthAndFullName(patient.getDateOfBirth(),
+                patient.getFullName());
+
+        if(patientExists.isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient Already Registered");
+        }
+    }
+
 }

@@ -28,6 +28,7 @@ public class RegistrationController {
     @ApiOperation(value = "Add a new patient", response = String.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Patient successfully added"),
+            @ApiResponse(code = 400, message = "Patient already registered"),
             @ApiResponse(code = 401, message = "You are not authorized to add a patient"),
             @ApiResponse(code = 403, message = "Adding a patient is forbidden"),
             @ApiResponse(code = 422, message = "Patient already registered")
