@@ -24,6 +24,7 @@ public class Patient {
     private String maritalStatus;
     private String healthConditions;
 
+
     public Patient() {
 
     }
