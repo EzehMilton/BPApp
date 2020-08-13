@@ -1,0 +1,65 @@
+version: "3"
+services:
+  register:
+    container_name: register
+    image: ezehm/register:latest
+    networks:
+      - bp-network
+    ports:
+      - "8081:8081"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+    volumes:
+      - ./logs:/logs
+    depends_on:
+      - register_db
+  recordbp:
+    container_name: recordbp
+    image: ezehm/recordbp
+    networks:
+      - bp-network
+    ports:
+      - "8082:8082"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+    volumes:
+      - ./logs:/logs
+    depends_on:
+      - recordbp_db
+  register_db:
+    image: postgres
+    volumes:
+      - app_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: registerdb
+      POSTGRES_USER: myUser
+      POSTGRES_PASSWORD: password
+    networks:
+      - bp-network
+    ports:
+      - 5432:5432
+  recordbp_db:
+    image: postgres
+    volumes:
+      - app_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: recordbpdb
+      POSTGRES_USER: myUser
+      POSTGRES_PASSWORD: password
+    networks:
+      - bp-network
+    ports:
+      - 5433:5432
+volumes:
+  app_data:
+networks:
+  bp-network:
+    driver: bridge
