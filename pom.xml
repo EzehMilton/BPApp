@@ -6,5 +6,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>register</module>
+    <module>recordbp</module>
   </modules>
 </project>
