@@ -1,9 +1,6 @@
 package com.milton.register.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Patient {
@@ -20,7 +17,8 @@ public class Patient {
     private String registrationTime;
     private String dateOfBirth;
     // TODO convert to enum
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String maritalStatus;
     private String healthConditions;
 
@@ -29,8 +27,7 @@ public class Patient {
 
     }
 
-    public Patient(long id, String patientId, String fullName, String telNumber, String telNextOfKin, String registrationDate, String registrationTime, String dateOfBirth, String gender, String maritalStatus, String healthConditions) {
-        this.id = id;
+    public Patient(String patientId, String fullName, String telNumber, String telNextOfKin, String registrationDate, String registrationTime, String dateOfBirth, Gender gender, String maritalStatus, String healthConditions) {
         this.patientId = patientId;
         this.fullName = fullName;
         this.telNumber = telNumber;
@@ -107,11 +104,11 @@ public class Patient {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

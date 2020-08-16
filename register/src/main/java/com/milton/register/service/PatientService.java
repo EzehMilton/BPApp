@@ -1,5 +1,6 @@
 package com.milton.register.service;
 
+import com.milton.register.config.AppConfig;
 import com.milton.register.model.Patient;
 import com.milton.register.repository.PatientRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -19,9 +20,11 @@ import java.util.Optional;
 public class PatientService {
 
     private PatientRepository patientRepository;
+    private AppConfig appConfig;
 
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, AppConfig appConfig) {
         this.patientRepository = patientRepository;
+        this.appConfig = appConfig;
     }
 
     /**
@@ -30,6 +33,8 @@ public class PatientService {
      * @return Patient ID
      */
     public String addPatient(Patient patient){
+        System.out.println("Application Name: " + appConfig.getAppname());
+        System.out.println("Application Version: " + appConfig.getVersion());
         checkIfPatientIsAlreadyRegistered(patient);
         setIdDateTimeForPatient(patient);
         patientRepository.save(patient);

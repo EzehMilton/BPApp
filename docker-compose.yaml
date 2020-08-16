@@ -15,8 +15,6 @@ services:
     restart: always
     volumes:
       - ./logs:/logs
-    depends_on:
-      - dbpostgresql
   recordbp:
     container_name: recordbp
     image: ezehm/recordbp
@@ -32,21 +30,6 @@ services:
     restart: always
     volumes:
       - ./logs:/logs
-    depends_on:
-      - dbpostgresql
-  dbpostgresql:
-    image: postgres
-    container_name: dbpostgresql
-    networks:
-      - bp-network
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=postgres
-volumes:
-  app_data:
 networks:
   bp-network:
     driver: bridge
