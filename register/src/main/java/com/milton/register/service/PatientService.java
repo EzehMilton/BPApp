@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Optional;
 
@@ -57,8 +58,7 @@ public class PatientService {
      */
     private void setIdDateTimeForPatient(Patient patient) {
         patient.setPatientId(RandomStringUtils.randomAlphanumeric(6));
-        patient.setRegistrationDate(LocalDate.now().toString());
-        patient.setRegistrationTime(LocalTime.now().toString().substring(0,8));
+        patient.setLocalDateTime(LocalDateTime.now());
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.milton.register.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Patient {
@@ -12,11 +13,10 @@ public class Patient {
     private String fullName;
     private String telNumber;
     private String telNextOfKin;
-    // TODO convert to date
-    private String registrationDate;
-    private String registrationTime;
+    // TODO convert to just LocalDateTime
+    private LocalDateTime localDateTime;
+
     private String dateOfBirth;
-    // TODO convert to enum
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private String maritalStatus;
@@ -27,13 +27,12 @@ public class Patient {
 
     }
 
-    public Patient(String patientId, String fullName, String telNumber, String telNextOfKin, String registrationDate, String registrationTime, String dateOfBirth, Gender gender, String maritalStatus, String healthConditions) {
+    public Patient(String patientId, String fullName, String telNumber, String telNextOfKin, LocalDateTime localDateTime, String dateOfBirth, Gender gender, String maritalStatus, String healthConditions) {
         this.patientId = patientId;
         this.fullName = fullName;
         this.telNumber = telNumber;
         this.telNextOfKin = telNextOfKin;
-        this.registrationDate = registrationDate;
-        this.registrationTime = registrationTime;
+        this.localDateTime = localDateTime;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
@@ -80,20 +79,12 @@ public class Patient {
         this.telNextOfKin = telNextOfKin;
     }
 
-    public String getRegistrationDate() {
-        return registrationDate;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public String getRegistrationTime() {
-        return registrationTime;
-    }
-
-    public void setRegistrationTime(String registrationTime) {
-        this.registrationTime = registrationTime;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public String getDateOfBirth() {

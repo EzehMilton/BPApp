@@ -22,8 +22,7 @@ public class BpReading {
     public BpReading() {
     }
 
-    public BpReading(Long id, String patientId, int systolic, int diastolic, int heartRate, int weight, LocalDateTime localDateTime) {
-        this.id = id;
+    public BpReading(String patientId, int systolic, int diastolic, int heartRate, int weight, LocalDateTime localDateTime) {
         this.patientId = patientId;
         this.systolic = systolic;
         this.diastolic = diastolic;
