@@ -5,6 +5,7 @@ import com.milton.recordbp.repository.BpReadingRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class BpReadingService {
@@ -19,4 +20,5 @@ public class BpReadingService {
         bpReadingRepository.save(bpReading);
         return bpReading;
     }
+
 }

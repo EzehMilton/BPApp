@@ -4,22 +4,30 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "PATIENTS")
 public class Patient {
+    //TODO Add column annotations to
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @Column(name = "patientid")
     private String patientId;
+    @Column(name = "name")
     private String fullName;
+    @Column(name = "telno")
     private String telNumber;
+    @Column(name = "kintelno")
     private String telNextOfKin;
-    // TODO convert to just LocalDateTime
+    @Column(name = "datetime")
     private LocalDateTime localDateTime;
-
+    @Column(name = "dateofbirth")
     private String dateOfBirth;
     @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
     private Gender gender;
+    @Column(name = "maritalstatus")
     private String maritalStatus;
+    @Column(name = "health")
     private String healthConditions;
 
 
