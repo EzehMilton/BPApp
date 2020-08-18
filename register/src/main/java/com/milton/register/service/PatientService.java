@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Optional;
 
 /**
@@ -73,6 +71,15 @@ public class PatientService {
         if(patientExists.isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient Already Registered");
         }
+    }
+
+    /**
+     * Get telephone number from patient ID
+     * @param patientId
+     * @return Telephone Number
+     */
+    public String getTelNumberForPatientId(String patientId){
+        return patientRepository.getTelNo(patientId);
     }
 
 }
