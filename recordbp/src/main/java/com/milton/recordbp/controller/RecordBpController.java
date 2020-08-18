@@ -1,8 +1,10 @@
 package com.milton.recordbp.controller;
 
 import com.milton.recordbp.model.BpReading;
+import com.milton.recordbp.repository.PatientIds;
 import com.milton.recordbp.service.BpReadingService;
 import io.swagger.annotations.Api;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +26,11 @@ public class RecordBpController {
     ResponseEntity<BpReading> recordBpOfPatient(@RequestBody BpReading bpReading){
         return ResponseEntity.ok().body(bpReadingService.BpReading(bpReading));
 
+    }
+
+    @GetMapping("/highbplist")
+    ResponseEntity<List<PatientIds>> test(){
+        List<PatientIds> ids = bpReadingService.listAllHighBps();
+        return ResponseEntity.status(HttpStatus.OK).body(ids);
     }
 }
