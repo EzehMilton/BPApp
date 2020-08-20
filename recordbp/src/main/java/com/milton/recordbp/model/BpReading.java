@@ -1,29 +1,32 @@
 package com.milton.recordbp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "BPREADINGS")
 public class BpReading {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "patientid")
     private String patientId;
+    @Column(name = "systolic")
     private int systolic;
+    @Column(name = "diastolic")
     private int diastolic;
+    @Column(name = "heartrate")
     private int heartRate;
+    @Column(name = "weight")
     private int weight;
+    @Column(name = "date")
     private LocalDateTime localDateTime;
 
 
     public BpReading() {
     }
 
-    public BpReading(Long id, String patientId, int systolic, int diastolic, int heartRate, int weight, LocalDateTime localDateTime) {
-        this.id = id;
+    public BpReading(String patientId, int systolic, int diastolic, int heartRate, int weight, LocalDateTime localDateTime) {
         this.patientId = patientId;
         this.systolic = systolic;
         this.diastolic = diastolic;

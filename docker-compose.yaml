@@ -1,0 +1,35 @@
+version: "3"
+services:
+  register:
+    container_name: register
+    image: ezehm/register:latest
+    networks:
+      - bp-network
+    ports:
+      - "8081:8081"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+    volumes:
+      - ./logs:/logs
+  recordbp:
+    container_name: recordbp
+    image: ezehm/recordbp
+    networks:
+      - bp-network
+    ports:
+      - "8082:8082"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+    volumes:
+      - ./logs:/logs
+networks:
+  bp-network:
+    driver: bridge

@@ -18,6 +18,7 @@ import java.util.Optional;
 @Api(value = "patientsregistration")
 public class RegistrationController {
 
+
     private PatientService patientService;
 
     public RegistrationController(PatientService patientService) {
@@ -56,4 +57,16 @@ public class RegistrationController {
     }
 
 
+    @ApiOperation(value = "Get telephone number by patient ID", response = Patient.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully found telephone number"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the telephone number"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The telephone number you were trying to reach is not found")
+    }
+    )
+    @GetMapping("/telno/{patientId}")
+    String getTelNo(@PathVariable String patientId){
+        return patientService.getTelNumberForPatientId(patientId);
+    }
 }

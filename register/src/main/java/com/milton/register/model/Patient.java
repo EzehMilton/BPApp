@@ -1,27 +1,33 @@
 package com.milton.register.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "PATIENTS")
 public class Patient {
+    //TODO Add column annotations to
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @Column(name = "patientid")
     private String patientId;
+    @Column(name = "name")
     private String fullName;
+    @Column(name = "telno")
     private String telNumber;
+    @Column(name = "kintelno")
     private String telNextOfKin;
-    // TODO convert to date
-    private String registrationDate;
-    private String registrationTime;
+    @Column(name = "datetime")
+    private LocalDateTime localDateTime;
+    @Column(name = "dateofbirth")
     private String dateOfBirth;
-    // TODO convert to enum
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+    @Column(name = "maritalstatus")
     private String maritalStatus;
+    @Column(name = "health")
     private String healthConditions;
 
 
@@ -29,14 +35,12 @@ public class Patient {
 
     }
 
-    public Patient(long id, String patientId, String fullName, String telNumber, String telNextOfKin, String registrationDate, String registrationTime, String dateOfBirth, String gender, String maritalStatus, String healthConditions) {
-        this.id = id;
+    public Patient(String patientId, String fullName, String telNumber, String telNextOfKin, LocalDateTime localDateTime, String dateOfBirth, Gender gender, String maritalStatus, String healthConditions) {
         this.patientId = patientId;
         this.fullName = fullName;
         this.telNumber = telNumber;
         this.telNextOfKin = telNextOfKin;
-        this.registrationDate = registrationDate;
-        this.registrationTime = registrationTime;
+        this.localDateTime = localDateTime;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
@@ -83,20 +87,12 @@ public class Patient {
         this.telNextOfKin = telNextOfKin;
     }
 
-    public String getRegistrationDate() {
-        return registrationDate;
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
     }
 
-    public void setRegistrationDate(String registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public String getRegistrationTime() {
-        return registrationTime;
-    }
-
-    public void setRegistrationTime(String registrationTime) {
-        this.registrationTime = registrationTime;
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public String getDateOfBirth() {
@@ -107,11 +103,11 @@ public class Patient {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

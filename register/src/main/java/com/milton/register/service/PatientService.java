@@ -1,5 +1,6 @@
 package com.milton.register.service;
 
+import com.milton.register.config.AppConfig;
 import com.milton.register.model.Patient;
 import com.milton.register.repository.PatientRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -7,8 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -19,9 +19,11 @@ import java.util.Optional;
 public class PatientService {
 
     private PatientRepository patientRepository;
+    private AppConfig appConfig;
 
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, AppConfig appConfig) {
         this.patientRepository = patientRepository;
+        this.appConfig = appConfig;
     }
 
     /**
@@ -30,6 +32,8 @@ public class PatientService {
      * @return Patient ID
      */
     public String addPatient(Patient patient){
+        System.out.println("Application Name: " + appConfig.getAppname());
+        System.out.println("Application Version: " + appConfig.getVersion());
         checkIfPatientIsAlreadyRegistered(patient);
         setIdDateTimeForPatient(patient);
         patientRepository.save(patient);
@@ -52,8 +56,7 @@ public class PatientService {
      */
     private void setIdDateTimeForPatient(Patient patient) {
         patient.setPatientId(RandomStringUtils.randomAlphanumeric(6));
-        patient.setRegistrationDate(LocalDate.now().toString());
-        patient.setRegistrationTime(LocalTime.now().toString().substring(0,8));
+        patient.setLocalDateTime(LocalDateTime.now());
     }
 
     /**
@@ -68,6 +71,15 @@ public class PatientService {
         if(patientExists.isPresent()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Patient Already Registered");
         }
+    }
+
+    /**
+     * Get telephone number from patient ID
+     * @param patientId
+     * @return Telephone Number
+     */
+    public String getTelNumberForPatientId(String patientId){
+        return patientRepository.getTelNo(patientId);
     }
 
 }
