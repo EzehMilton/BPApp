@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Optional;
  * Registers and gets patient
  */
 @Service
-public class PatientService {
+public class PatientService implements IPatientService {
 
     private PatientRepository patientRepository;
     private AppConfig appConfig;
@@ -31,7 +32,10 @@ public class PatientService {
      * @param patient
      * @return Patient ID
      */
+    @Override
     public String addPatient(Patient patient){
+        // do this to fail fast
+        Objects.requireNonNull(patient);
         System.out.println("Application Name: " + appConfig.getAppname());
         System.out.println("Application Version: " + appConfig.getVersion());
         checkIfPatientIsAlreadyRegistered(patient);
@@ -45,6 +49,7 @@ public class PatientService {
      * @param id - Patient ID genereated during registration
      * @return Patent
      */
+    @Override
     public Optional<Patient> findPatientById(String id) {
         System.out.println("id = " + id);
         return patientRepository.findByPatientId(id);
@@ -78,6 +83,7 @@ public class PatientService {
      * @param patientId
      * @return Telephone Number
      */
+    @Override
     public String getTelNumberForPatientId(String patientId){
         return patientRepository.getTelNo(patientId);
     }

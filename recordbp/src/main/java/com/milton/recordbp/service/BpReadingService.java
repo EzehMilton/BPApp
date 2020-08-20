@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class BpReadingService {
+public class BpReadingService implements IBpReadingService {
     private BpReadingRepository bpReadingRepository;
 
     public BpReadingService(BpReadingRepository bpReadingRepository) {
@@ -21,6 +21,7 @@ public class BpReadingService {
      * @param bpReading
      * @return
      */
+    @Override
     public BpReading BpReading(BpReading bpReading){
         bpReading.setLocalDateTime(LocalDateTime.now());
         bpReadingRepository.save(bpReading);
@@ -31,6 +32,7 @@ public class BpReadingService {
      * List of patients with high BP
      * @return
      */
+    @Override
     public List<PatientIds> listAllHighBps(){
         return bpReadingRepository.findAllHighBPPatients();
     }
