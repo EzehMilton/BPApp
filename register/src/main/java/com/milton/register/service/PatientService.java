@@ -4,11 +4,13 @@ import com.milton.register.config.AppConfig;
 import com.milton.register.model.Patient;
 import com.milton.register.repository.PatientRepository;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -16,7 +18,8 @@ import java.util.Optional;
  * Registers and gets patient
  */
 @Service
-public class PatientService {
+@Primary
+public class PatientService implements IPatientService {
 
     private PatientRepository patientRepository;
     private AppConfig appConfig;
@@ -31,7 +34,10 @@ public class PatientService {
      * @param patient
      * @return Patient ID
      */
+    @Override
     public String addPatient(Patient patient){
+        // do this to fail fast
+        Objects.requireNonNull(patient);
         System.out.println("Application Name: " + appConfig.getAppname());
         System.out.println("Application Version: " + appConfig.getVersion());
         checkIfPatientIsAlreadyRegistered(patient);
@@ -45,6 +51,7 @@ public class PatientService {
      * @param id - Patient ID genereated during registration
      * @return Patent
      */
+    @Override
     public Optional<Patient> findPatientById(String id) {
         System.out.println("id = " + id);
         return patientRepository.findByPatientId(id);
@@ -78,6 +85,7 @@ public class PatientService {
      * @param patientId
      * @return Telephone Number
      */
+    @Override
     public String getTelNumberForPatientId(String patientId){
         return patientRepository.getTelNo(patientId);
     }
