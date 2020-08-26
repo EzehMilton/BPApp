@@ -3,12 +3,14 @@ package com.milton.recordbp.service;
 import com.milton.recordbp.model.BpReading;
 import com.milton.recordbp.repository.BpReadingRepository;
 import com.milton.recordbp.repository.PatientIds;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Primary
 public class BpReadingService implements IBpReadingService {
     private BpReadingRepository bpReadingRepository;
 

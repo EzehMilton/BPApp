@@ -4,6 +4,7 @@ import com.milton.register.config.AppConfig;
 import com.milton.register.model.Patient;
 import com.milton.register.repository.PatientRepository;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,6 +18,7 @@ import java.util.Optional;
  * Registers and gets patient
  */
 @Service
+@Primary
 public class PatientService implements IPatientService {
 
     private PatientRepository patientRepository;
