@@ -26,7 +26,9 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD       
-      - name: Docker Push
+      - name: Docker Push Registry
         run: docker push ezehm/register
-		run: docker push ezehm/recordbp 
-		run: docker push ezehm/notify
+      - name: Docker Push Record BP
+	run: docker push ezehm/recordbp 
+      - name: Docker Push Notify
+	run: docker push ezehm/notify
