@@ -14,8 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("v1/register/")
-@Api(value = "patientsregistration")
+@RequestMapping("v1/patient/")
+@Api(value = "patient")
 public class RegistrationController {
 
 
@@ -35,7 +35,7 @@ public class RegistrationController {
             @ApiResponse(code = 422, message = "Patient already registered")
     }
     )
-    @PostMapping("add")
+    @PostMapping("register")
     ResponseEntity<String> addPatient(@RequestBody Patient patient) {
         return ResponseEntity.status(201).body("Patient Added. ID: " + patientService.addPatient(patient));
     }
@@ -49,7 +49,7 @@ public class RegistrationController {
             @ApiResponse(code = 404, message = "The patient you were trying to reach is not found")
     }
     )
-    @GetMapping("patient/{patientId}")
+    @GetMapping("{patientId}")
     Patient getPatientById(@PathVariable(required = true) String patientId) {
         // not need for a get when you use orElse...
         return patientService.findPatientById(patientId).orElseThrow(() ->
@@ -65,7 +65,7 @@ public class RegistrationController {
             @ApiResponse(code = 404, message = "The telephone number you were trying to reach is not found")
     }
     )
-    @GetMapping("/telno/{patientId}")
+    @GetMapping("{patientId}/number")
     String getTelNo(@PathVariable String patientId){
         return patientService.getTelNumberForPatientId(patientId);
     }

@@ -18,7 +18,7 @@ public class SwaggerConfig {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()                 .apis(RequestHandlerSelectors.basePackage("com.milton.register.controller"))
-                .paths(regex("/v1/register.*"))
+                .paths(regex("/v1/patient.*"))
                 .build()
                 .apiInfo(metaData());
     }
