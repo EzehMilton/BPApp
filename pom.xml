@@ -7,5 +7,6 @@
   <modules>
   	<module>register</module>
     <module>recordbp</module>
+    <module>notify</module>
   </modules>
 </project>
