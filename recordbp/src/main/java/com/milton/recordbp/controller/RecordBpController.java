@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/recordbp/")
-@Api(value = "recordbp")
+@RequestMapping("v1/records/")
+@Api(value = "records")
 public class RecordBpController {
 
     private BpReadingService bpReadingService;
@@ -45,7 +45,7 @@ public class RecordBpController {
             @ApiResponse(code = 404, message = "The list you were trying to reach is not found")
     }
     )
-    @GetMapping("/highbplist")
+    @GetMapping("/highbps")
     ResponseEntity<List<PatientIds>> test(){
         List<PatientIds> ids = bpReadingService.listAllHighBps();
         return ResponseEntity.status(HttpStatus.OK).body(ids);
